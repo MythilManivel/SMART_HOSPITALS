@@ -10,7 +10,6 @@ document.getElementById('send-btn').addEventListener('click', function() {
         }, 1000);
     }
 });
-
 function appendMessage(message, sender) {
     const chatBody = document.querySelector('.chat-body');
     const messageElement = document.createElement('div');
@@ -19,7 +18,6 @@ function appendMessage(message, sender) {
     chatBody.appendChild(messageElement);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
-
 function getCurrentTime() {
     const now = new Date();
     let hours = now.getHours();
@@ -29,4 +27,5 @@ function getCurrentTime() {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     return ${hours}:${minutes} ${ampm};
+
 }
