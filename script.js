@@ -14,7 +14,7 @@ function appendMessage(message, sender) {
     const chatBody = document.querySelector('.chat-body');
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
-    messageElement.innerHTML = <p>${message}</p><span class="time">${getCurrentTime()}</span>;
+    messageElement.innerHTML = <p>${message}</p><span class="time">Rs{getCurrentTime()}</span>;
     chatBody.appendChild(messageElement);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
@@ -29,3 +29,4 @@ function getCurrentTime() {
     return ${hours}:${minutes} ${ampm};
 
 }
+
