@@ -6,7 +6,7 @@ document.getElementById('send-btn').addEventListener('click', function() {
         input.value = '';
 
         setTimeout(function() {
-            appendMessage("We are processing you", 'bot');
+            appendMessage("We are processing", 'bot');
         }, 1000);
     }
 });
@@ -29,5 +29,6 @@ function getCurrentTime() {
     return ${hours}:${minutes} ${ampm};
 
 }
+
 
 
