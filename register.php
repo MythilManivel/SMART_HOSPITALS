@@ -1,35 +1,44 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jm_medical_center";
+require_once "config/db.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    // Collect & sanitize input
+    $full_name    = trim($_POST['full_name']);
+    $email        = trim($_POST['email']);
+    $phone_number = trim($_POST['phone_number']);
+    $address      = trim($_POST['address']);
+    $city         = trim($_POST['city']);
+    $state        = trim($_POST['state']);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $full_name = $_POST['full_name'];
-    $email = $_POST['email'];
-    $phone_number = $_POST['phone_number'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $state = $_POST['state'];
+    // Prepare SQL statement
+    $stmt = $conn->prepare(
+        "INSERT INTO registrations_info 
+        (full_name, email, phone_number, address, city, state)
+        VALUES (?, ?, ?, ?, ?, ?)"
+    );
 
-    $stmt = $conn->prepare("INSERT INTO registrations_info (full_name, email, phone_number, address, city, state) VALUES (?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
+        die("Query preparation failed");
     }
 
-    $stmt->bind_param("ssssss", $full_name, $email, $phone_number, $address, $city, $state);
+    // Bind parameters
+    $stmt->bind_param(
+        "ssssss",
+        $full_name,
+        $email,
+        $phone_number,
+        $address,
+        $city,
+        $state
+    );
 
+    // Execute query
     if ($stmt->execute()) {
         header("Location: success.php");
         exit();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Registration Failed";
     }
 
     $stmt->close();
