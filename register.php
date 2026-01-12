@@ -3,7 +3,6 @@ require_once "config/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Collect & sanitize input
     $full_name    = trim($_POST['full_name']);
     $email        = trim($_POST['email']);
     $phone_number = trim($_POST['phone_number']);
@@ -11,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $city         = trim($_POST['city']);
     $state        = trim($_POST['state']);
 
-    // Prepare SQL statement
     $stmt = $conn->prepare(
         "INSERT INTO registrations_info 
         (full_name, email, phone_number, address, city, state)
@@ -46,3 +44,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $conn->close();
 ?>
+
